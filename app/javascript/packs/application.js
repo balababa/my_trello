@@ -23,7 +23,8 @@ document.addEventListener("turbolinks:load", function(event) {
     new Vue({
       el,
        data: {
-         lists: JSON.parse(el.dataset.lists)
+         lists: JSON.parse(el.dataset.lists),
+         
        },
        components: { List }
     })
