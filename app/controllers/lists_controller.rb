@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, :move]
   before_action :authenticate_user!
 
   def index
@@ -7,6 +7,11 @@ class ListsController < ApplicationController
   end
 
   def show
+  end
+
+  def move
+    @list.insert_at(list_params[:position].to_i)
+    render 'show.json'
   end
 
   def new
