@@ -6,19 +6,9 @@ class ListsController < ApplicationController
     @lists = current_user.lists
   end
 
-  def show
-  end
-
   def move
     @list.insert_at(list_params[:position].to_i)
     render 'show.json'
-  end
-
-  def new
-    @list = current_user.lists.new
-  end
-
-  def edit
   end
 
   def create
@@ -48,8 +38,6 @@ class ListsController < ApplicationController
     end
   end
 
-  # DELETE /lists/1
-  # DELETE /lists/1.json
   def destroy
     @list.destroy
     respond_to do |format|
