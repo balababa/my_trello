@@ -109,7 +109,7 @@ export default {
   }
 
   .list {
-    @apply .bg-gray-300 .mx-2 .w-64 .rounded .px-3 .py-1;
+    @apply .bg-gray-300 .mx-2 .w-64 .rounded .px-3 .py-2 .flex-none .h-full;
 
     .header {   
       @apply   .font-bold;
