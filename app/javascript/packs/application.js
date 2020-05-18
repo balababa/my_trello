@@ -15,7 +15,9 @@ import 'styles'
 import Vue from 'vue/dist/vue.esm';
 import List from 'components/list';
 import draggable from 'vuedraggable';
-import Rails from '@rails/ujs'
+import Rails from '@rails/ujs';
+import store from 'stores/list';
+import { mapGetters, mapActions } from 'vuex';
 
 document.addEventListener("turbolinks:load", function(event) {
   let el = document.querySelector("#board");
@@ -23,29 +25,25 @@ document.addEventListener("turbolinks:load", function(event) {
   if (el) {
     new Vue({
       el,
-       data: {
-         lists: JSON.parse(el.dataset.lists),
-         
-       },
+      store,
+      computed: {
+        // ...mapGetters(["lists"])
+        lists: {
+          get() {
+            return this.$store.state.lists;
+          },
+
+          set(value) {
+            this.$store.commit('UPDATE_LISTS', value);
+          }
+        }
+      },
        components: { List, draggable },
        methods:{
-        listMoved(event) {
-          let data = new FormData();
-          data.append('list[position]', event.moved.newIndex + 1);
-
-          Rails.ajax({
-            url: `/lists/${this.lists[event.moved.newIndex].id}/move`,
-            type: 'PUT',
-            data,
-            dataType: 'json',
-            success: (resp) => {
-              console.log(resp)
-            },
-            error: (err) => {
-              console.log(err)
-            }
-          });
-         }
+        ...mapActions(["loadList", "moveList"])
+       }, 
+       beforeMount() {
+        this.loadList();
        }
     })
   }
