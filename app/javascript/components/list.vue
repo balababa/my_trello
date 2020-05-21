@@ -13,7 +13,7 @@
 
  
         
-        <textarea v-if="editing" class="content" id="" v-model="content"></textarea>
+        <textarea ref="card_name" v-if="editing" class="content" id="" v-model="content"></textarea>
         <button v-if="editing" class="button" @click="createCard">建立卡片</button>
         <button v-if="editing" class="cancel" @click="cancelNew"><span ><i  class="fas fa-times"></i></span></button>
       </div>
@@ -64,6 +64,9 @@ export default {
     newCard(event) {
       event.preventDefault();
       this.editing = true;
+      this.$nextTick(()=> {
+        this.$refs.card_name.focus();
+      })
 
           },
     cancelNew(event) {

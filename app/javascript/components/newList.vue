@@ -4,7 +4,7 @@
       <span><i  class="fas fa-plus" ></i>&nbsp</span>新增其他列表
     </button>
 
-    <input v-if="editing" type="text" class="list_name" placeholder="為列表輸入標題" v-model="name">
+    <input v-if="editing" ref="list_name" type="text" class="list_name" placeholder="為列表輸入標題" v-model="name">
     <button  v-if="editing"  class="button create_button" @click="createList">建立卡片</button>
     <button   v-if="editing"  class="cancel_button" @click="cancelCreateList"><span ><i  class="fas fa-times"></i></span></button>
 
@@ -24,7 +24,25 @@ export default {
     }
   },
   methods: {
+    newList(event) {
+      event.preventDefault();
+      this.editing = true;
+      this.$nextTick( () => {
+        this.$refs.list_name.focus();
 
+      })
+    },
+    cancelCreateList(event) {
+      event.preventDefault();
+
+      this.editing = false;
+    },
+    createList(event) {
+      event.preventDefault();
+      this.$store.dispatch("createList", this.name);
+      this.name = '';
+      this.editing = false;
+    }
   }
 }
 </script>
@@ -75,6 +93,6 @@ export default {
 }
 
 .container {
-  @apply .bg-gray-300 .px-3 .py-2 .mx-2 .w-64 .h-full .rounded .flex-none;
+  @apply .bg-gray-300 .px-2 .py-2 .mx-2 .w-64 .h-full .rounded .flex-none;
 }
 </style>
