@@ -14,6 +14,7 @@ import 'styles'
 
 import Vue from 'vue/dist/vue.esm';
 import List from 'components/list';
+import Newlist from 'components/newList';
 import draggable from 'vuedraggable';
 import Rails from '@rails/ujs';
 import store from 'stores/list';
@@ -38,7 +39,7 @@ document.addEventListener("turbolinks:load", function(event) {
           }
         }
       },
-       components: { List, draggable },
+       components: { List, draggable, Newlist },
        methods:{
         ...mapActions(["loadList", "moveList"])
        }, 

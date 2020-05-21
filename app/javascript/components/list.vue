@@ -144,6 +144,9 @@ export default {
       .button {
         @apply .px-3 .py-2 .font-semibold .text-sm .bg-green-400 rounded;
 
+        &:hover {
+          @apply .bg-green-300;
+        }
         &:focus {
           @apply .outline-none;
         }
