@@ -1,8 +1,14 @@
 <template>
   <div class="list">
-    <h2 class="header">{{ list.name }}</h2>
+    <div class="header"> 
+      
+      <a v-if="!editing" @click="editName"><h2  class="header inline">{{ list.name }}</h2></a>   
+      <input ref="list_name" v-if="editing" type="text" class="list_name" placeholder="為列表輸入標題" v-model="list.name" @blur="blur" @keyup.enter="$event.target.blur()">
+      <button  class="delete" @click="deleteList"><span ><i class="fas fa-trash"></i></span></button>
+    </div>
+
     <div class="deck">
-      <draggable  ghost-class="ghost" group="list" v-model="cards" @change="cardMove">
+      <draggable :animation="200" dragClass="card" ghost-class="ghost" group="list" v-model="cards" @change="cardMove">
         <Card class="shadow-md rounded" v-for="card in cards" :card="card" :key="card.id"></Card>
       </draggable>
 
@@ -38,6 +44,15 @@ export default {
     }
   },
   methods: {
+ 
+
+    deleteList(event) {
+      event.preventDefault();
+      if (confirm("是否刪除?")) {
+        this.$store.dispatch('deleteList', this.list.id);
+      }
+    },
+
     createCard(event) {
       event.preventDefault();
       
@@ -114,12 +129,31 @@ export default {
   .list {
     @apply .bg-gray-300 .mx-2 .w-64 .rounded .px-3 .py-2 .flex-none .h-full;
 
+    .header {
+      @apply .flex .justify-between .items-center;
+
+      .delete {
+       @apply  .text-gray-600;
+
+        &:hover {
+
+          @apply .text-black;
+        }
+      
+      }
+    }
+  
+
     .header {   
       @apply   .font-bold;
     }
 
     .deck {
       @apply .mt-2;
+
+      .card {
+        opacity: 75;
+      }
 
     }
 
