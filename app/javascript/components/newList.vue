@@ -4,7 +4,7 @@
       <span><i  class="fas fa-plus" ></i>&nbsp</span>新增其他列表
     </button>
 
-    <input v-if="editing" ref="list_name" type="text" class="list_name" placeholder="為列表輸入標題" v-model="name">
+    <input v-if="editing" ref="list_name" type="text" class="list_name" placeholder="為列表輸入標題" v-model="name" @keyup.enter="$event.target.blur()" @blur="createList">
     <button  v-if="editing"  class="button create_button" @click="createList">建立卡片</button>
     <button   v-if="editing"  class="cancel_button" @click="cancelCreateList"><span ><i  class="fas fa-times"></i></span></button>
 
@@ -36,6 +36,7 @@ export default {
       event.preventDefault();
 
       this.editing = false;
+      this.name = '';
     },
     createList(event) {
       event.preventDefault();

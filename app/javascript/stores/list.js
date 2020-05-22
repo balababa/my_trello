@@ -17,6 +17,12 @@ export default new Vuex.Store({
     UPDATE_LISTS(state, lists) {
         state.lists = lists;
     },
+
+    REPLACE_LIST(state, list) {
+      let list_index = state.lists.findIndex(item => item.id == list.id);
+
+      state.lists.splice(list_index, 1, list);
+    },
     
     REPLACE_CARD(state, card) {
       let list_index = state.lists.findIndex(list => list.id == card.list_id);
@@ -36,6 +42,25 @@ export default new Vuex.Store({
   },
 
   actions: {
+    updateList( { commit }, { id, name }) {
+      let data = new FormData();
+      data.append("list[name]", name)
+
+      Rails.ajax({
+        url: `/lists/${id}`,
+        type: 'PUT',
+        data,
+        dataType: 'json',
+        success: resp => {
+          console.log(resp);
+          commit('REPLACE_LIST', resp)
+        },
+        error: err => {
+          console.log(err)
+        }
+      })
+    },
+
     deleteList( { commit }, list_id ) {
       Rails.ajax({
         url: `/lists/${list_id}`,
