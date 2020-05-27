@@ -37,6 +37,7 @@ export default new Vuex.Store({
 
     DELETE_LIST(state, list_id) {
       let list_index = state.lists.findIndex(list => list.id == list_id);
+
       state.lists.splice(list_index, 1);
     }
   },
@@ -66,9 +67,6 @@ export default new Vuex.Store({
         url: `/lists/${list_id}`,
         type: 'DELETE',
         dataType: 'json',
-        success: resp => {
-          commit("DELETE_LIST", list_id);
-        },
         error: err => {
           console.log(err)
         }
@@ -85,7 +83,6 @@ export default new Vuex.Store({
         dataType: 'json',
         success: resp => {
           console.log(resp)
-          commit("ADD_LIST", resp);
         },
         error: err => {
           console.log(err)
@@ -102,9 +99,6 @@ export default new Vuex.Store({
         type: 'PUT',
         data,
         dataType: 'json',
-        success: resp => {
-          commit("REPLACE_CARD", resp);
-        },
         error: err => {
           console.log(err)
         }
