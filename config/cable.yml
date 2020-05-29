@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  url: redis://redistogo:e0a4053281cce2e73198f037afdc2838@pike.redistogo.com:11185/
   channel_prefix: trello_production

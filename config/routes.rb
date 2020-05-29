@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
   resources :cards, only: [:create, :update, :destroy] do
     member do
       put :move
