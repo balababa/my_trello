@@ -45,8 +45,7 @@ export default {
     deleteCard(event) {
       event.preventDefault();
       if (confirm("是否刪除?")) {
-        console.log(`card_id: ${this.card.id}`)
-        this.$store.dispatch('deleteCard', { card_id: this.card.id, list_id: this.card.list_id});
+        this.$store.dispatch('deleteCard', this.card.id);
       }
     }
   }
