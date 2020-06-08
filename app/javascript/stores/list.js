@@ -27,7 +27,6 @@ export default new Vuex.Store({
     REPLACE_CARD(state, card) {
       let list_index = state.lists.findIndex(list => list.id == card.list_id);
       let card_index = state.lists[list_index].cards.findIndex(item => item.id == card.id);
-      console.log(state.lists[list_index].cards[card_index]);
       state.lists[list_index].cards.splice(card_index, 1, card);
     },
 
@@ -39,6 +38,13 @@ export default new Vuex.Store({
       let list_index = state.lists.findIndex(list => list.id == list_id);
 
       state.lists.splice(list_index, 1);
+    },
+
+    DELETE_CARD(state, { list_id, card_id }) {
+      console.log(card_id)
+      let list_index = state.lists.findIndex(list => list.id == list_id);
+      let card_index = state.lists[list_index].cards.findIndex(item => item.id == card_id);
+      state.lists[list_index].cards.splice(card_index, 1);
     }
   },
 
@@ -99,6 +105,21 @@ export default new Vuex.Store({
         type: 'PUT',
         data,
         dataType: 'json',
+        error: err => {
+          console.log(err)
+        }
+      })
+    },
+
+    deleteCard( { commit }, { card_id, list_id }) {
+      Rails.ajax({
+        url: `/cards/${card_id}`,
+        type: 'DELETE',
+        dataType: 'json',
+        success: resp => {
+          console.log(card_id)
+          commit('DELETE_CARD', {list_id: list_id, card_id: card_id})
+        },
         error: err => {
           console.log(err)
         }

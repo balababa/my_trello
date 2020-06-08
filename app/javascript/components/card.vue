@@ -1,7 +1,11 @@
 <template>
 <div>
     <div class="card" @click="editing=true">
-    {{ card.name }}
+    
+      <span>{{ card.name }}</span>
+      <a @click.stop="" @click="deleteCard"><i class="fas fa-times" ></i></a>
+    
+
   </div>
 
   <div v-if="editing" class="dialog" >
@@ -36,6 +40,14 @@ export default {
       event.preventDefault();
       this.$store.dispatch("updateCard", { id: this.card.id, name: this.content });
       this.editing = false;
+    },
+
+    deleteCard(event) {
+      event.preventDefault();
+      if (confirm("是否刪除?")) {
+        console.log(`card_id: ${this.card.id}`)
+        this.$store.dispatch('deleteCard', { card_id: this.card.id, list_id: this.card.list_id});
+      }
     }
   }
 }
@@ -43,7 +55,7 @@ export default {
 
 <style lang="scss" scoped>
   .card {
-    @apply .bg-gray-100 .mb-2 .rounded-sm .px-2 .py-2 .cursor-pointer;
+    @apply .bg-gray-100 .mb-2 .rounded-sm .px-2 .py-2 .cursor-pointer .flex .justify-between;
   }
 
   .dialog {
