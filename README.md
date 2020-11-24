@@ -13,9 +13,10 @@ The setups steps expect following tools installed on the system.
 - NodeJs
 - Postgresql
 
-## Packages / Toos
+## Packages / Tools
 * [devise](https://github.com/heartcombo/devise): Framework for authentication and easily generating member system
 * [tailwindcss](https://tailwindcss.com/): CSS framework
+* [vuedraggable](https://sortablejs.github.io/Vue.Draggable/#/simple): JS package based on sortablejs for Vue
 * [webpacker](https://github.com/rails/webpacker): Asssets bundler
 * [VueJS](https://vuejs.org/): JavaScript Framework
 * [foreman](https://github.com/theforeman/foreman): Quickly deploy  application by defining processes and jobs in `Procfile`
@@ -23,6 +24,8 @@ The setups steps expect following tools installed on the system.
 *  [acts_as_list](https://github.com/brendon/acts_as_list): Sort and reorder model objects like list
 *  [rspec-rails](https://github.com/rspec/rspec-rails): Testing library
 *  [faker](https://github.com/faker-ruby/faker): Library for generating fake data
+*  [actioncable](https://guides.rubyonrails.org/action_cable_overview.html): Rails component for websocket
+
 ## Installation
 
 ### 1. Clone the repository
